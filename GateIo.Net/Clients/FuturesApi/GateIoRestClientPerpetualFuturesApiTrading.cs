@@ -70,7 +70,7 @@ namespace GateIo.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.AddString("leverage", leverage);
-            parameters.AddOptionalString("cross_leverage_limit", crossLeverageLimit);
+            if(leverage == 0)parameters.AddOptionalString("cross_leverage_limit", crossLeverageLimit);
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"/api/v4/futures/{settlementAsset.ToLowerInvariant()}/positions/{contract}/leverage", GateIoExchange.RateLimiter.RestFuturesOther, 1, true, parameterPosition: HttpMethodParameterPosition.InUri);
             return await _baseClient.SendAsync<GateIoPosition>(request, parameters, ct).ConfigureAwait(false);
         }
