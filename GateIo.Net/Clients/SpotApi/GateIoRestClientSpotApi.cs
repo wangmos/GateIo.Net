@@ -186,7 +186,7 @@ namespace GateIo.Net.Clients.SpotApi
                 type == CommonOrderType.Limit ? Enums.NewOrderType.Limit : Enums.NewOrderType.Market,
                 quantity,
                 price,
-                timeInForce: type == CommonOrderType.Limit ? Enums.TimeInForce.GoodTillCancel : null,
+                timeInForce: type == CommonOrderType.Limit ? Enums.TimeInForce.GoodTillCancel : Enums.TimeInForce.ImmediateOrCancel,
                 text: clientOrderId).ConfigureAwait(false);
             if (!result)
                 return result.As<OrderId>(null);
