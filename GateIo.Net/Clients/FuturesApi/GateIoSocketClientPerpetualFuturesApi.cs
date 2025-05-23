@@ -116,8 +116,11 @@ namespace GateIo.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string settlementAsset, string contract, int updateMs, int depth, Action<DataEvent<GateIoPerpOrderBookUpdate>> onMessage, CancellationToken ct = default)
         {
-            updateMs.ValidateIntValues(nameof(updateMs), 20, 100);
-            depth.ValidateIntValues(nameof(depth), 20, 50, 100);
+            //updateMs.ValidateIntValues(nameof(updateMs), 20, 100);
+            //depth.ValidateIntValues(nameof(depth), 20, 50, 100);
+
+            updateMs = 20;
+            depth = 20;
 
             var subscription = new GateIoSubscription<GateIoPerpOrderBookUpdate>(_logger, "futures.order_book_update", ["futures.order_book_update." + contract], new[] { contract, updateMs + "ms", depth.ToString() }, x => onMessage(x.WithSymbol(x.Data.Contract)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("v4/ws/" + settlementAsset.ToLowerInvariant()), subscription, ct).ConfigureAwait(false);

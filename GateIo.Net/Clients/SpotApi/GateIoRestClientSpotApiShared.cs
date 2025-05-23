@@ -534,7 +534,7 @@ namespace GateIo.Net.Clients.SpotApi
             if (orderType == SharedOrderType.LimitMaker) return TimeInForce.PendingOrCancel;
             if (tif == SharedTimeInForce.ImmediateOrCancel) return TimeInForce.ImmediateOrCancel;
             if (tif == SharedTimeInForce.FillOrKill) return TimeInForce.FillOrKill;
-            if (tif == SharedTimeInForce.GoodTillCanceled) return TimeInForce.GoodTillCancel;
+            if (tif == SharedTimeInForce.GoodTillCanceled || orderType == SharedOrderType.Limit) return TimeInForce.GoodTillCancel;
             if (orderType == SharedOrderType.Market) return TimeInForce.ImmediateOrCancel;
 
             return null;

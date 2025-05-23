@@ -949,6 +949,7 @@ namespace GateIo.Net.Clients.FuturesApi
                 ExchangeParameters.GetValue<string>(request.ExchangeParameters, Exchange, "SettleAsset")!,
                 request.Symbol.GetSymbol(FormatSymbol),
                 request.Leverage,
+                ExchangeParameters.GetValue<decimal>(request.ExchangeParameters, Exchange, "cross_leverage_limit")!,
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedLeverage>(Exchange, null, default);
